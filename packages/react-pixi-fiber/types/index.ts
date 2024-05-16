@@ -35,7 +35,7 @@ type ConstructorWithOneParam<T extends new (...args: any[]) => any> =
 type ConstructorParams<T extends new (...args: any[]) => any> =
 	ConstructorWithOneParam<Overloads<T>[number]>;
 
-// type KeysICareAbout1 = keyof Omit<
+// type TargetKeys = keyof Omit<
 // 	PixiType,
 // 	| 'Application'
 // 	| 'ApplicationOptions'
@@ -62,7 +62,7 @@ type ConstructorParams<T extends new (...args: any[]) => any> =
 // 	| 'AlphaMask'
 // >;
 
-type KeysICareAbout1 =
+type TargetKeys =
 	| 'Container'
 	| 'AnimatedSprite'
 	| 'NineSliceSprite'
@@ -73,8 +73,8 @@ type KeysICareAbout1 =
 	| 'Text'
 	| 'HTMLText';
 
-type KeysICareAbout2 = {
-	[K in keyof PixiType]: K extends KeysICareAbout1
+type AutoFilteredKeys = {
+	[K in keyof PixiType]: K extends TargetKeys
 		? PixiType[K] extends new (...args: any) => any
 			? K
 			: never
@@ -82,7 +82,7 @@ type KeysICareAbout2 = {
 }[keyof PixiType];
 
 type PixiElements = {
-	[K in KeysICareAbout2]: [
+	[K in AutoFilteredKeys]: [
 		Lowercase<K>,
 			React.PropsWithChildren<
 				ConstructorParams<PixiType[K]>
