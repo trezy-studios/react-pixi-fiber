@@ -18,7 +18,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/trezy-studios/pixi-react-fiber.git"
+    "url": "https://github.com/trezy-studios/react-pixi-fiber.git"
   },
   "main": "src/index.js",
   "license": "MIT",
