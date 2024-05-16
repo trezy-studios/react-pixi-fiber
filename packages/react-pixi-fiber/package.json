@@ -24,7 +24,8 @@
   "license": "MIT",
   "packageManager": "yarn@4.2.2",
   "scripts": {
-    "lint": "eslint --ext .js,.jsx ."
+    "lint": "eslint --ext .js,.jsx .",
+    "semantic-release": "semantic-release -e semantic-release-monorepo"
   },
   "dependencies": {
     "react-reconciler": "^0.29.2"
