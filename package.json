@@ -1,0 +1,30 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/react-pixi-fiber"
+  ],
+  "packageManager": "yarn@4.2.2",
+  "devDependencies": {
+    "@trezy-studios/eslint-config": "^1.0.8",
+    "@trezy-studios/eslint-config-react": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.9.0",
+    "@typescript-eslint/parser": "^7.9.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-editorconfig": "^4.0.3",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsdoc": "^48.2.5",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-optimize-regex": "^1.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-perf": "^3.3.2",
+    "eslint-plugin-react-prefer-function-component": "^3.3.0",
+    "eslint-plugin-security": "^3.0.0",
+    "eslint-plugin-sort-class-members": "^1.20.0",
+    "eslint-plugin-unused-imports": "^3.2.0",
+    "semantic-release": "^23.0.8",
+    "semantic-release-monorepo": "^8.0.2",
+    "typescript": "^5.4.5"
+  }
+}

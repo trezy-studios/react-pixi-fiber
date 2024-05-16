@@ -1,0 +1,14 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  release-config:
+    name: Release @trezy-studios/react-pixi-fiber
+    uses: ./.github/workflows/release-base.yml
+    with:
+      packageName: '@trezy-studios/react-pixi-fiber'
+    secrets: inherit
