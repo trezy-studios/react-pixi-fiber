@@ -1,7 +1,30 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+// this does not make sense due to using infer often in this file,
+// in those cases the variables/parameters are not used but the types are.
+/* eslint-disable no-unused-vars */
 import * as PIXI from 'pixi.js'
 import * as React from 'react'
+
+// in most cases the auto-generated names are correct but in some cases they are not
+// for example the class name is `HTMLText` but the component name should be `htmlText`
+export const nameOverrides = {
+	HTMLText: 'htmlText',
+} as const
+
+
 type PixiType = typeof PIXI
+
+type Options =
+	| PIXI.ContainerOptions
+	| PIXI.NineSliceSpriteOptions
+	| PIXI.TilingSpriteOptions
+	| PIXI.SpriteOptions
+	| PIXI.MeshOptions
+	| PIXI.GraphicsOptions
+	| PIXI.TextOptions
+	| PIXI.HTMLTextOptions;
+
 type Overloads<T> = T extends {
 	new (...args: infer A1): infer R1;
 	new (...args: infer A2): infer R2;
@@ -30,8 +53,10 @@ type Overloads<T> = T extends {
 		}
 	? [new (...args: A1) => R1]
 	: any;
+
 type ConstructorWithOneParam<T extends new (...args: any[]) => any> =
 	T extends new (args: infer A) => any ? A : never;
+
 type ConstructorParams<T extends new (...args: any[]) => any> =
 	ConstructorWithOneParam<Overloads<T>[number]>;
 
@@ -81,18 +106,20 @@ type AutoFilteredKeys = {
 		: never;
 }[keyof PixiType];
 
-type PixiElements = {
-	[K in AutoFilteredKeys]: [
-		Lowercase<K>,
-			React.PropsWithChildren<
-				ConstructorParams<PixiType[K]>
-				& { init?: readonly any[] }
-		> & React.PropsWithRef<{ ref?: React.MutableRefObject<InstanceType<PixiType[K]>> }>
-	];
-};
 
+type OptionsType<T> = T extends Options ? T : never
+
+// this computes the correct props for each component with the original name since we need
+// the name to index into PixiType
 type PixiElementsImpl = {
-	[K in keyof PixiElements as PixiElements[K][0]]: PixiElements[K][1];
+	[K in AutoFilteredKeys as
+		K extends keyof typeof nameOverrides
+			? typeof nameOverrides[K]
+			: Uncapitalize<K>
+	]: React.PropsWithChildren<
+				OptionsType<ConstructorParams<PixiType[K]>>
+				& { init?: ConstructorParams<PixiType[K]> }
+	> & React.PropsWithRef<{ ref?: React.MutableRefObject<InstanceType<PixiType[K]>> }>;
 };
 
 declare global {
