@@ -111,20 +111,15 @@ type OptionsType<T> = T extends Options ? T : never
 
 // this computes the correct props for each component with the original name since we need
 // the name to index into PixiType
-type PixiElements = {
-	[K in AutoFilteredKeys]: [
-		K extends keyof typeof nameOverrides ? typeof nameOverrides[K] : Uncapitalize<K>,
-			React.PropsWithChildren<
+type PixiElementsImpl = {
+	[K in AutoFilteredKeys as
+		K extends keyof typeof nameOverrides
+			? typeof nameOverrides[K]
+			: Uncapitalize<K>
+	]: React.PropsWithChildren<
 				OptionsType<ConstructorParams<PixiType[K]>>
 				& { init?: ConstructorParams<PixiType[K]> }
-		> & React.PropsWithRef<{ ref?: React.MutableRefObject<InstanceType<PixiType[K]>> }>
-	];
-};
-
-// because the names of the components are not the same as the pixi class names we convert
-// our record of KV pairs a record with the correct keys and values.
-type PixiElementsImpl = {
-	[K in keyof PixiElements as PixiElements[K][0]]: PixiElements[K][1];
+	> & React.PropsWithRef<{ ref?: React.MutableRefObject<InstanceType<PixiType[K]>> }>;
 };
 
 declare global {
